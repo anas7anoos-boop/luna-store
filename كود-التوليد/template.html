@@ -1,0 +1,116 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:Amiri;font-weight:700;src:url(node_modules/@fontsource/amiri/files/amiri-arabic-700-normal.woff2)}
+@font-face{font-family:Amiri;font-weight:400;src:url(node_modules/@fontsource/amiri/files/amiri-arabic-400-normal.woff2)}
+@font-face{font-family:Kufi;font-weight:500;src:url(node_modules/@fontsource/reem-kufi/files/reem-kufi-arabic-500-normal.woff2)}
+html,body{margin:0;background:#000}canvas{display:block}
+</style></head><body><canvas id="c" width="1080" height="1920"></canvas>
+<script>
+const W=1080,H=1920,c=document.getElementById('c'),x=c.getContext('2d');
+let D=null,T=null;
+const GOLD='#e8c879',CREAM='#f5efe0';
+const ease=t=>t<0?0:t>1?1:1-Math.pow(1-t,3);
+const clamp=t=>t<0?0:t>1?1:t;
+function rnd(i){const s=Math.sin(i*127.1+311.7)*43758.5453;return s-Math.floor(s)}
+function star(cx,cy,r){x.beginPath();for(let i=0;i<16;i++){const a=i*Math.PI/8,rr=i%2?r*0.62:r;x.lineTo(cx+rr*Math.cos(a),cy+rr*Math.sin(a))}x.closePath();x.stroke()}
+function bgNight(t){
+  const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,'#060b1e');g.addColorStop(.6,'#0d1838');g.addColorStop(1,'#1b2450');
+  x.fillStyle=g;x.fillRect(0,0,W,H);
+  for(let i=0;i<220;i++){const px=rnd(i)*W,py=rnd(i+40)*H*0.95,tw=0.3+0.7*(0.5+0.5*Math.sin(t*(1+rnd(i+7)*2)+i));
+    x.fillStyle=`rgba(255,250,235,${tw*(0.25+rnd(i+2)*0.6)})`;x.beginPath();x.arc(px,py,0.8+rnd(i+3)*1.8,0,7);x.fill()}
+  // crescent
+  const cx=W*0.78,cy=H*0.12+Math.sin(t*0.4)*6;const gl=x.createRadialGradient(cx,cy,10,cx,cy,220);gl.addColorStop(0,'rgba(255,230,160,.25)');gl.addColorStop(1,'rgba(255,230,160,0)');
+  x.fillStyle=gl;x.fillRect(cx-240,cy-240,480,480);
+  if(!window.MOON){const m=document.createElement('canvas');m.width=m.height=200;const mx=m.getContext('2d');mx.fillStyle='#f3dca0';mx.beginPath();mx.arc(100,100,70,0,7);mx.fill();mx.globalCompositeOperation='destination-out';mx.beginPath();mx.arc(130,82,62,0,7);mx.fill();window.MOON=m}
+  x.drawImage(window.MOON,cx-100,cy-100);
+  // hills
+  x.fillStyle='#04081a';x.beginPath();x.moveTo(0,H);for(let i=0;i<=20;i++){const xx=i/20*W;x.lineTo(xx,H*0.9-Math.sin(i*0.7)*40-Math.sin(i*1.9)*20)}x.lineTo(W,H);x.fill();
+  const v=x.createLinearGradient(0,0,0,H);v.addColorStop(0,'rgba(0,0,0,.3)');v.addColorStop(.3,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(0,0,0,.35)');x.fillStyle=v;x.fillRect(0,0,W,H);
+}
+function bgDawn(t){
+  const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,'#1c1030');g.addColorStop(.45,'#5a2a4a');g.addColorStop(.75,'#c0603e');g.addColorStop(1,'#e9a35a');
+  x.fillStyle=g;x.fillRect(0,0,W,H);
+  const sy=H*0.86-t*4;const sg=x.createRadialGradient(W/2,sy,20,W/2,sy,700);sg.addColorStop(0,'rgba(255,225,170,.85)');sg.addColorStop(.2,'rgba(255,190,120,.35)');sg.addColorStop(1,'rgba(255,170,100,0)');
+  x.fillStyle=sg;x.fillRect(0,0,W,H);
+  // dunes
+  const dune=(base,amp,ph,col)=>{x.fillStyle=col;x.beginPath();x.moveTo(0,H);for(let i=0;i<=40;i++){const xx=i/40*W;x.lineTo(xx,base-Math.sin(i*0.25+ph)*amp)}x.lineTo(W,H);x.fill()};
+  dune(H*0.9,40,t*0.05,'rgba(60,25,30,.85)');dune(H*0.95,30,2+t*0.08,'rgba(30,12,18,.95)');
+  for(let i=0;i<30;i++){const px=rnd(i)*W,py=(rnd(i+3)*H-t*(15+rnd(i+9)*25))%H,y2=py<0?py+H:py;x.fillStyle=`rgba(255,230,190,${0.15+0.3*(0.5+0.5*Math.sin(t*1.3+i))})`;x.beginPath();x.arc(px,y2,1.5+rnd(i+5)*3,0,7);x.fill()}
+  // darken text zone
+  const v=x.createRadialGradient(W/2,H*0.48,100,W/2,H*0.48,800);v.addColorStop(0,'rgba(15,5,15,.55)');v.addColorStop(1,'rgba(15,5,15,0)');x.fillStyle=v;x.fillRect(0,0,W,H);
+}
+function bg(t){if(D&&D.theme==='night')return bgNight(t);if(D&&D.theme==='dawn')return bgDawn(t);return bgGreen(t)}
+function bgGreen(t){
+  const g=x.createRadialGradient(W/2,H*0.42,100,W/2,H*0.5,H*0.8);
+  g.addColorStop(0,'#123a33');g.addColorStop(.55,'#0a221e');g.addColorStop(1,'#050f0d');
+  x.fillStyle=g;x.fillRect(0,0,W,H);
+  // geometric pattern, slow drift
+  x.save();x.strokeStyle='rgba(232,200,121,0.055)';x.lineWidth=2;
+  const off=(t*6)%180;
+  for(let yy=-180;yy<H+180;yy+=180)for(let xx=-180;xx<W+180;xx+=180)star(xx+((yy/180)%2?90:0),yy+off,62);
+  x.restore();
+  // floating light particles
+  for(let i=0;i<45;i++){
+    const px=rnd(i)*W, sp=20+rnd(i+9)*40, py=(rnd(i+3)*H - t*sp)%H, y2=py<0?py+H:py;
+    const a=0.15+0.35*(0.5+0.5*Math.sin(t*1.5+i));const r=1.5+rnd(i+5)*3.5;
+    x.fillStyle=`rgba(255,220,150,${a})`;x.beginPath();x.arc(px,y2,r,0,7);x.fill();
+  }
+  // vignette
+  const v=x.createLinearGradient(0,0,0,H);v.addColorStop(0,'rgba(0,0,0,.45)');v.addColorStop(.25,'rgba(0,0,0,0)');v.addColorStop(.75,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(0,0,0,.55)');
+  x.fillStyle=v;x.fillRect(0,0,W,H);
+}
+function wrap(words,font,maxW){
+  x.font=font;const sp=x.measureText(' ').width;const lines=[];let cur=[],w=0;
+  for(const wd of words){const ww=x.measureText(wd).width;if(cur.length&&w+sp+ww>maxW){lines.push({ws:cur,w});cur=[];w=0}
+    cur.push({t:wd,w:ww});w+=(cur.length>1?sp:0)+ww}
+  if(cur.length)lines.push({ws:cur,w});return {lines,sp};
+}
+function drawWords(text,font,size,lh,cy,maxW,color,reveal,M){M=M==null?1:M;
+  // reveal: number of words visible (float); returns word count
+  const words=text.split(/\s+/);let R=wrap(words,font,maxW);const n0=R.lines.length;let lo=maxW*0.5,hi=maxW;for(let i=0;i<12;i++){const m=(lo+hi)/2;if(wrap(words,font,m).lines.length>n0)lo=m;else hi=m}R=wrap(words,font,hi);const {lines,sp}=R;
+  const totalH=lines.length*lh;let y=cy-totalH/2+lh/2;let k=0;
+  x.textBaseline='middle';x.textAlign='right';x.direction='rtl';
+  for(const L of lines){let xx=W/2+L.w/2;
+    for(const wd of L.ws){const a=clamp(reveal-k);if(a>0){x.globalAlpha=ease(a)*M;x.fillStyle=color;
+        x.shadowColor='rgba(0,0,0,.6)';x.shadowBlur=18;x.fillText(wd.t,xx,y+(1-ease(a))*24);x.shadowBlur=0}
+      xx-=wd.w+sp;k++}
+    y+=lh}
+  x.globalAlpha=1;return words.length;
+}
+function centerText(t,font,y,color,alpha){x.globalAlpha=alpha;x.font=font;x.fillStyle=color;x.textAlign='center';x.textBaseline='middle';x.direction='rtl';x.shadowColor='rgba(0,0,0,.6)';x.shadowBlur=14;x.fillText(t,W/2,y);x.shadowBlur=0;x.globalAlpha=1}
+function ornament(y,a,wid){x.globalAlpha=a;x.strokeStyle=GOLD;x.lineWidth=2;x.beginPath();x.moveTo(W/2-wid,y);x.lineTo(W/2-22,y);x.moveTo(W/2+22,y);x.lineTo(W/2+wid,y);x.stroke();
+  x.fillStyle=GOLD;x.beginPath();x.moveTo(W/2,y-12);x.lineTo(W/2+12,y);x.lineTo(W/2,y+12);x.lineTo(W/2-12,y);x.fill();x.globalAlpha=1}
+// timeline
+function timing(d){const n=d.hadith.split(/\s+/).length;const hStart=3.2,perW=0.42,hEnd=hStart+n*perW;
+  const hold=Math.max(3,n*0.18);const noteS=hEnd+hold, noteE=noteS+3.2, endS=noteE, total=endS+3.4;return {hStart,perW,hEnd,noteS,noteE,endS,total,n}}
+window.setup=d=>{D=d;T=timing(d);return T.total};
+window.renderAt=t=>{
+  bg(t);const tm=T;
+  // hook
+  if(t<3.2){const a=ease(t/0.5)*(1-ease((t-2.6)/0.6));
+    centerText('حديث صحيح',"500 46px Kufi",H*0.38,GOLD,a*0.9);
+    drawWords(D.hook,"700 96px Amiri",96,150,H*0.5,900,CREAM,t*7,a);}
+  // hadith
+  if(t>=tm.hStart-0.2 && t<tm.noteS+0.6){
+    const out=1-ease((t-tm.noteS)/0.6);
+    centerText(D.intro||'عن النبي ﷺ قال:',"500 44px Kufi",H*0.22,GOLD,ease((t-tm.hStart+0.2)/0.6)*out);
+    ornament(H*0.27,ease((t-tm.hStart)/0.8)*out,260);
+    x.globalAlpha=out;
+    const size=tm.n>22?74:tm.n>14?82:92;
+    x.save();x.globalAlpha=out;
+    drawWords(D.intro?D.hadith:'«'+D.hadith+'»',`700 ${size}px Amiri`,size,size*1.62,H*0.5,920,CREAM,(t-tm.hStart)/tm.perW,out);
+    x.restore();
+    const sa=ease((t-tm.hEnd)/0.7)*out;ornament(H*0.75,sa,260);
+    centerText(D.src,"500 40px Kufi",H*0.79,GOLD,sa);
+  }
+  // note
+  if(t>=tm.noteS && t<tm.noteE+0.5){const a=ease((t-tm.noteS-0.3)/0.6)*(1-ease((t-tm.noteE)/0.5));
+    drawWords(D.note,"700 86px Amiri",86,140,H*0.5,880,GOLD,99,a)}
+  // end card
+  if(t>=tm.endS){const a=ease((t-tm.endS-0.2)/0.6);
+    centerText('اللهم صلِّ وسلم على نبينا محمد',"700 70px Amiri",H*0.45,CREAM,a);
+    ornament(H*0.51,a,220);
+    centerText('شاركها… لتعمّ الفائدة',"500 44px Kufi",H*0.57,GOLD,ease((t-tm.endS-0.8)/0.6));
+  }
+};
+</script></body></html>
