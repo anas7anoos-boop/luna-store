@@ -988,6 +988,21 @@
     "img/pmw4ykt3r2sj9-mw4ymgjq-2.webp",
     "img/pmw4ykt3r2sj9-mw4ymgjq-3.webp"
    ]
+  },
+  {
+   "id": "pmw4yootitb3v",
+   "cat": "kids",
+   "name": "اطفال",
+   "desc": "",
+   "price": "1900",
+   "sizes": "",
+   "colors": "",
+   "status": "order",
+   "imgs": [
+    "img/pmw4yootitb3v-mw4yq8gd-0.webp",
+    "img/pmw4yootitb3v-mw4yq8gd-1.webp",
+    "img/pmw4yootitb3v-mw4yq8gd-2.webp"
+   ]
   }
  ]
 }
