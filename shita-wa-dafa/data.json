@@ -1105,6 +1105,20 @@
     "img/pmw4z63jhz0f2-mw4z7rgw-3.webp",
     "img/pmw4z63jhz0f2-mw4z7rgw-4.webp"
    ]
+  },
+  {
+   "id": "pmw4z9rjox9k1",
+   "cat": "mats",
+   "name": "مفرش",
+   "desc": "",
+   "price": "1800",
+   "sizes": "",
+   "colors": "",
+   "status": "order",
+   "imgs": [
+    "img/pmw4z9rjox9k1-mw4zah4m-0.webp",
+    "img/pmw4z9rjox9k1-mw4zah4m-1.webp"
+   ]
   }
  ]
 }
