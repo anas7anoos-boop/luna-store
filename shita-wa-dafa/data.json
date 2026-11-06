@@ -71,6 +71,10 @@
   {
    "id": "cmw4z8yvr",
    "name": "شناتي"
+  },
+  {
+   "id": "cmw4zh17f",
+   "name": "سكارف"
   }
  ],
  "products": [
@@ -1122,7 +1126,7 @@
   },
   {
    "id": "pmw4zeukeqk6w",
-   "cat": "decor",
+   "cat": "cmw4zh17f",
    "name": "سكارف دافئ",
    "desc": "",
    "price": "1000",
