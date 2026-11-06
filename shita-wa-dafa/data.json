@@ -972,6 +972,22 @@
     "img/pmw4vow7b5ejb-mw4vr7s9-0.webp",
     "img/pmw4vow7b5ejb-mw4vr7s9-1.webp"
    ]
+  },
+  {
+   "id": "pmw4ykt3r2sj9",
+   "cat": "coasters",
+   "name": "كوستر توليب",
+   "desc": "",
+   "price": "350",
+   "sizes": "",
+   "colors": "",
+   "status": "order",
+   "imgs": [
+    "img/pmw4ykt3r2sj9-mw4ymgjq-0.webp",
+    "img/pmw4ykt3r2sj9-mw4ymgjq-1.webp",
+    "img/pmw4ykt3r2sj9-mw4ymgjq-2.webp",
+    "img/pmw4ykt3r2sj9-mw4ymgjq-3.webp"
+   ]
   }
  ]
 }
