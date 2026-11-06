@@ -71,10 +71,6 @@
   {
    "id": "cmw4z8yvr",
    "name": "شناتي"
-  },
-  {
-   "id": "cmw4zh17f",
-   "name": "سكارف"
   }
  ],
  "products": [
@@ -98,12 +94,26 @@
    "cat": "jackets",
    "name": "فيست دوار شمس",
    "desc": "",
-   "colors": "الالوان حسب الطلب",
+   "colors": "الألوان حسب الطلب",
    "price": "1900",
    "sizes": "",
    "status": "order",
    "imgs": [
     "img/p2-mw4vnjkb-0.webp"
+   ]
+  },
+  {
+   "cat": "jackets",
+   "name": "كارديجان مربعات وردي",
+   "desc": "كارديجان طويل بمربعات وردية وفوشيا وبيضاء.",
+   "colors": "وردي وفوشيا وأبيض",
+   "price": "3000",
+   "sizes": "",
+   "status": "order",
+   "id": "p2b",
+   "imgs": [
+    "img/p2-0.webp",
+    "img/p2-1.webp"
    ]
   },
   {
@@ -179,7 +189,7 @@
   },
   {
    "id": "p8",
-   "cat": "cmw4zh17f",
+   "cat": "scarves",
    "name": "سكارف",
    "desc": "بطانية شنيل بنية بغرزة مضفورة وحافة كريمية مجدولة.",
    "colors": "بني وكريمي",
@@ -189,6 +199,82 @@
    "imgs": [
     "img/p8-0.webp",
     "img/p8-1.webp"
+   ]
+  },
+  {
+   "id": "p16",
+   "cat": "scarves",
+   "name": "شال رمادي مضفور",
+   "desc": "شال طويل رمادي بغرزة مضفورة سميكة.",
+   "colors": "رمادي",
+   "price": "750",
+   "sizes": "",
+   "status": "order",
+   "imgs": [
+    "img/p16-0.webp"
+   ]
+  },
+  {
+   "id": "p17",
+   "cat": "scarves",
+   "name": "شال أزرق بحافة كريمية",
+   "desc": "شال أزرق فاتح بغرزة مضفورة وحافة كريمية.",
+   "colors": "أزرق فاتح وكريمي",
+   "price": "750",
+   "sizes": "",
+   "status": "order",
+   "imgs": [
+    "img/p17-0.webp"
+   ]
+  },
+  {
+   "id": "pmw4zeukeqk6w",
+   "cat": "scarves",
+   "name": "سكارف دافئ",
+   "desc": "",
+   "price": "1000",
+   "sizes": "",
+   "colors": "",
+   "status": "order",
+   "imgs": [
+    "img/pmw4zeukeqk6w-mw4zga39-0.webp",
+    "img/pmw4zeukeqk6w-mw4zga39-1.webp",
+    "img/pmw4zeukeqk6w-mw4zga39-2.webp",
+    "img/pmw4zeukeqk6w-mw4zga39-3.webp",
+    "img/pmw4zeukeqk6w-mw4zga39-4.webp",
+    "img/pmw4zeukeqk6w-mw4zga39-5.webp",
+    "img/pmw4zeukeqk6w-mw4zga39-6.webp",
+    "img/pmw4zeukeqk6w-mw4zga39-7.webp",
+    "img/pmw4zeukeqk6w-mw4zga39-8.webp",
+    "img/pmw4zeukeqk6w-mw4zga39-9.webp",
+    "img/pmw4zeukeqk6w-mw4zga39-10.webp",
+    "img/pmw4zeukeqk6w-mw4zga39-11.webp"
+   ]
+  },
+  {
+   "id": "pmw4zi4q45707",
+   "cat": "scarves",
+   "name": "سكارف رجالي",
+   "desc": "",
+   "price": "1000..1150",
+   "sizes": "",
+   "colors": "",
+   "status": "order",
+   "imgs": [
+    "img/pmw4zi4q45707-mw4zj74z-0.webp",
+    "img/pmw4zi4q45707-mw4zj74z-1.webp",
+    "img/pmw4zi4q45707-mw4zj74z-2.webp",
+    "img/pmw4zi4q45707-mw4zj74z-3.webp",
+    "img/pmw4zi4q45707-mw4zj74z-4.webp",
+    "img/pmw4zi4q45707-mw4zj74z-5.webp",
+    "img/pmw4zi4q45707-mw4zj74z-6.webp",
+    "img/pmw4zi4q45707-mw4zj74z-7.webp",
+    "img/pmw4zi4q45707-mw4zj74z-8.webp",
+    "img/pmw4zi4q45707-mw4zj74z-9.webp",
+    "img/pmw4zi4q45707-mw4zj74z-10.webp",
+    "img/pmw4zi4q45707-mw4zj74z-11.webp",
+    "img/pmw4zi4q45707-mw4zj74z-12.webp",
+    "img/pmw4zi4q45707-mw4zj74z-13.webp"
    ]
   },
   {
@@ -292,32 +378,6 @@
     "img/p15-0.webp",
     "img/p15-1.webp",
     "img/p15-2.webp"
-   ]
-  },
-  {
-   "id": "p16",
-   "cat": "scarves",
-   "name": "شال رمادي مضفور",
-   "desc": "شال طويل رمادي بغرزة مضفورة سميكة.",
-   "colors": "رمادي",
-   "price": "750",
-   "sizes": "",
-   "status": "order",
-   "imgs": [
-    "img/p16-0.webp"
-   ]
-  },
-  {
-   "id": "p17",
-   "cat": "scarves",
-   "name": "شال أزرق بحافة كريمية",
-   "desc": "شال أزرق فاتح بغرزة مضفورة وحافة كريمية.",
-   "colors": "أزرق فاتح وكريمي",
-   "price": "750",
-   "sizes": "",
-   "status": "order",
-   "imgs": [
-    "img/p17-0.webp"
    ]
   },
   {
@@ -970,7 +1030,7 @@
   {
    "id": "pmw4vow7b5ejb",
    "cat": "kids",
-   "name": "جاكيت اطفال",
+   "name": "جاكيت أطفال",
    "desc": "",
    "price": "2300",
    "sizes": "",
@@ -1015,7 +1075,7 @@
   {
    "id": "pmw4yql3cyvfq",
    "cat": "hair",
-   "name": "اكسسوار شعر",
+   "name": "إكسسوار شعر",
    "desc": "",
    "price": "400",
    "sizes": "",
@@ -1122,56 +1182,6 @@
    "imgs": [
     "img/pmw4z9rjox9k1-mw4zah4m-0.webp",
     "img/pmw4z9rjox9k1-mw4zah4m-1.webp"
-   ]
-  },
-  {
-   "id": "pmw4zeukeqk6w",
-   "cat": "cmw4zh17f",
-   "name": "سكارف دافئ",
-   "desc": "",
-   "price": "1000",
-   "sizes": "",
-   "colors": "",
-   "status": "order",
-   "imgs": [
-    "img/pmw4zeukeqk6w-mw4zga39-0.webp",
-    "img/pmw4zeukeqk6w-mw4zga39-1.webp",
-    "img/pmw4zeukeqk6w-mw4zga39-2.webp",
-    "img/pmw4zeukeqk6w-mw4zga39-3.webp",
-    "img/pmw4zeukeqk6w-mw4zga39-4.webp",
-    "img/pmw4zeukeqk6w-mw4zga39-5.webp",
-    "img/pmw4zeukeqk6w-mw4zga39-6.webp",
-    "img/pmw4zeukeqk6w-mw4zga39-7.webp",
-    "img/pmw4zeukeqk6w-mw4zga39-8.webp",
-    "img/pmw4zeukeqk6w-mw4zga39-9.webp",
-    "img/pmw4zeukeqk6w-mw4zga39-10.webp",
-    "img/pmw4zeukeqk6w-mw4zga39-11.webp"
-   ]
-  },
-  {
-   "id": "pmw4zi4q45707",
-   "cat": "cmw4zh17f",
-   "name": "سكارف رجالي",
-   "desc": "",
-   "price": "1000..1150",
-   "sizes": "",
-   "colors": "",
-   "status": "order",
-   "imgs": [
-    "img/pmw4zi4q45707-mw4zj74z-0.webp",
-    "img/pmw4zi4q45707-mw4zj74z-1.webp",
-    "img/pmw4zi4q45707-mw4zj74z-2.webp",
-    "img/pmw4zi4q45707-mw4zj74z-3.webp",
-    "img/pmw4zi4q45707-mw4zj74z-4.webp",
-    "img/pmw4zi4q45707-mw4zj74z-5.webp",
-    "img/pmw4zi4q45707-mw4zj74z-6.webp",
-    "img/pmw4zi4q45707-mw4zj74z-7.webp",
-    "img/pmw4zi4q45707-mw4zj74z-8.webp",
-    "img/pmw4zi4q45707-mw4zj74z-9.webp",
-    "img/pmw4zi4q45707-mw4zj74z-10.webp",
-    "img/pmw4zi4q45707-mw4zj74z-11.webp",
-    "img/pmw4zi4q45707-mw4zj74z-12.webp",
-    "img/pmw4zi4q45707-mw4zj74z-13.webp"
    ]
   },
   {
