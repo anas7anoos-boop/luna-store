@@ -578,11 +578,11 @@ function renderAdmin(){
       });
     });
   }else if(tab==='edit'){
-    if(!editing)editing={_new:true,id:uid(),cat:(view.cat||S.cats[0].id),name:'',desc:'',price:'',sizes:'',colors:'',status:'order',imgs:[]};
+    if(!editing)editing={_new:true,id:uid(),cat:(view.cat||''),name:'',desc:'',price:'',sizes:'',colors:'',status:'order',imgs:[]};
     var e=editing;
     h+='<div class="fld"><label>صور المنتج (أول صورة هي الغلاف)</label><div class="thumbs" id="thumbs">'+e.imgs.map(function(s,i){return '<div class="th"><img src="'+s+'" alt=""><button data-rm="'+i+'" aria-label="حذف الصورة">×</button>'+(i?'<button class="mv" data-cover="'+i+'" aria-label="اجعليها الغلاف">★</button>':'')+'</div>'}).join('')+'<label class="upl" aria-label="إضافة صور">+<input type="file" accept="image/*" multiple hidden id="fileIn"></label></div><span class="meter" id="upMsg"></span></div>';
     h+='<div class="fld"><label for="fName">اسم المنتج</label><input id="fName" value="'+esc(e.name)+'" placeholder="مثلاً: كارديجان الفيونكات"></div>';
-    h+='<div class="two"><div class="fld"><label for="fCat">القسم</label><select id="fCat">'+S.cats.map(function(c){return '<option value="'+c.id+'"'+(c.id===e.cat?' selected':'')+'>'+esc(c.name)+'</option>'}).join('')+'</select></div>';
+    h+='<div class="two"><div class="fld"><label for="fCat">القسم</label><select id="fCat">'+(e.cat?'':'<option value="" selected>اختاري القسم…</option>')+S.cats.map(function(c){return '<option value="'+c.id+'"'+(c.id===e.cat?' selected':'')+'>'+esc(c.name)+'</option>'}).join('')+'</select></div>';
     h+='<div class="fld"><label for="fPrice">السعر ('+esc(S.settings.currency)+') — اتركيه فاضي إذا السعر عند الطلب</label><input id="fPrice" inputmode="decimal" value="'+esc(e.price)+'"></div></div>';
     h+='<div class="two"><div class="fld"><label for="fSizes">المقاسات (افصلي بفاصلة)</label><input id="fSizes" value="'+esc(e.sizes)+'" placeholder="2 سنة، 4 سنوات، 6 سنوات"></div><div class="fld"><label for="fColors">الألوان المتوفرة</label><input id="fColors" value="'+esc(e.colors)+'" placeholder="كريمي، وردي، أزرق"></div></div>';
     h+='<div class="fld"><label for="fStatus">الحالة</label><select id="fStatus">'+Object.keys(STATUS).map(function(k){return '<option value="'+k+'"'+(k===e.status?' selected':'')+'>'+STATUS[k]+'</option>'}).join('')+'</select></div>';
@@ -624,6 +624,7 @@ function bindAdmin(d){
     Promise.all(files.map(compress)).then(function(arr){arr.forEach(function(s){if(s)editing.imgs.push(s)});renderAdmin()}).catch(function(){m.textContent='ما قدرت أقرأ وحدة من الصور. جربي صورة JPG أو PNG.'})};
   on('[data-saveprod]',function(){grab();var m=d.querySelector('#edMsg');
     if(!editing.name){m.textContent='اكتبي اسم المنتج أول.';return}
+    if(!editing.cat){m.textContent='اختاري القسم أول.';return}
     if(!editing.imgs.length){m.textContent='أضيفي صورة وحدة على الأقل.';return}
     var isNew=editing._new;delete editing._new;
     if(isNew)S.products.push(editing);else{var i=S.products.findIndex(function(p){return p.id===editing.id});S.products[i]=editing}

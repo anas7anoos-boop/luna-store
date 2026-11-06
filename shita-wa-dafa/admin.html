@@ -565,11 +565,11 @@ function renderAdmin(){
       });
     });
   }else if(tab==='edit'){
-    if(!editing)editing={_new:true,id:uid(),cat:(view.cat||S.cats[0].id),name:'',desc:'',price:'',sizes:'',colors:'',status:'order',imgs:[]};
+    if(!editing)editing={_new:true,id:uid(),cat:(view.cat||''),name:'',desc:'',price:'',sizes:'',colors:'',status:'order',imgs:[]};
     var e=editing;
     h+='<div class="fld"><label>صور المنتج (أول صورة هي الغلاف)</label><div class="thumbs" id="thumbs">'+e.imgs.map(function(s,i){return '<div class="th"><img src="'+s+'" alt=""><button data-rm="'+i+'" aria-label="حذف الصورة">×</button>'+(i?'<button class="mv" data-cover="'+i+'" aria-label="اجعليها الغلاف">★</button>':'')+'</div>'}).join('')+'<label class="upl" aria-label="إضافة صور">+<input type="file" accept="image/*" multiple hidden id="fileIn"></label></div><span class="meter" id="upMsg"></span></div>';
     h+='<div class="fld"><label for="fName">اسم المنتج</label><input id="fName" value="'+esc(e.name)+'" placeholder="مثلاً: كارديجان الفيونكات"></div>';
-    h+='<div class="two"><div class="fld"><label for="fCat">القسم</label><select id="fCat">'+S.cats.map(function(c){return '<option value="'+c.id+'"'+(c.id===e.cat?' selected':'')+'>'+esc(c.name)+'</option>'}).join('')+'</select></div>';
+    h+='<div class="two"><div class="fld"><label for="fCat">القسم</label><select id="fCat">'+(e.cat?'':'<option value="" selected>اختاري القسم…</option>')+S.cats.map(function(c){return '<option value="'+c.id+'"'+(c.id===e.cat?' selected':'')+'>'+esc(c.name)+'</option>'}).join('')+'</select></div>';
     h+='<div class="fld"><label for="fPrice">السعر ('+esc(S.settings.currency)+') — اتركيه فاضي إذا السعر عند الطلب</label><input id="fPrice" inputmode="decimal" value="'+esc(e.price)+'"></div></div>';
     h+='<div class="two"><div class="fld"><label for="fSizes">المقاسات (افصلي بفاصلة)</label><input id="fSizes" value="'+esc(e.sizes)+'" placeholder="2 سنة، 4 سنوات، 6 سنوات"></div><div class="fld"><label for="fColors">الألوان المتوفرة</label><input id="fColors" value="'+esc(e.colors)+'" placeholder="كريمي، وردي، أزرق"></div></div>';
     h+='<div class="fld"><label for="fStatus">الحالة</label><select id="fStatus">'+Object.keys(STATUS).map(function(k){return '<option value="'+k+'"'+(k===e.status?' selected':'')+'>'+STATUS[k]+'</option>'}).join('')+'</select></div>';
@@ -611,6 +611,7 @@ function bindAdmin(d){
     Promise.all(files.map(compress)).then(function(arr){arr.forEach(function(s){if(s)editing.imgs.push(s)});renderAdmin()}).catch(function(){m.textContent='ما قدرت أقرأ وحدة من الصور. جربي صورة JPG أو PNG.'})};
   on('[data-saveprod]',function(){grab();var m=d.querySelector('#edMsg');
     if(!editing.name){m.textContent='اكتبي اسم المنتج أول.';return}
+    if(!editing.cat){m.textContent='اختاري القسم أول.';return}
     if(!editing.imgs.length){m.textContent='أضيفي صورة وحدة على الأقل.';return}
     var isNew=editing._new;delete editing._new;
     if(isNew)S.products.push(editing);else{var i=S.products.findIndex(function(p){return p.id===editing.id});S.products[i]=editing}
@@ -663,7 +664,7 @@ function fail(t){document.getElementById('root').innerHTML='<p style="padding:60
 var REPO='anas7anoos-boop/luna-store',BR='main',DIR='shita-wa-dafa/',API='https://api.github.com/repos/'+REPO+'/',KEY='shita:ghtoken';
 var tok='';try{tok=localStorage.getItem(KEY)||''}catch(e){}
 function gh(path,method,body){return fetch(API+path,{method:method||'GET',headers:{Authorization:'Bearer '+tok,Accept:'application/vnd.github+json','Content-Type':'application/json'},body:body?JSON.stringify(body):undefined,cache:'no-store'}).then(function(r){if(!r.ok){var e=new Error('gh '+r.status);e.status=r.status;throw e}return r.json()})}
-function errText(e){var s=e&&e.status;return s===401?'المفتاح غلط أو انتهت صلاحيته. اطلعي وفوتي بمفتاح جديد.':(s===403||s===404)?'المفتاح ما إله صلاحية تعديل على الموقع. اطلبي مفتاح جديد من صاحبة الموقع.':(s===409||s===422)?'في حدا تاني حفظ تعديلات بنفس الوقت. حدّثي الصفحة وعيدي التعديل.':'ما قدرنا نوصل لـ GitHub. تأكدي من الإنترنت وجربي مرة تانية.'}
+function errText(e){var s=e&&e.status;if(s==='stale')return 'في تعديلات جديدة انحفظت على الموقع من مكان تاني بعد ما فتحتي الصفحة. ما حفظنا شي لحتى ما تنمسح. انسخي تعديلك، حدّثي الصفحة، وعيديه.';return s===401?'المفتاح غلط أو انتهت صلاحيته. اطلعي وفوتي بمفتاح جديد.':(s===403||s===404)?'المفتاح ما إله صلاحية تعديل على الموقع. اطلبي مفتاح جديد من صاحبة الموقع.':(s===409||s===422)?'في حدا تاني حفظ تعديلات بنفس الوقت. حدّثي الصفحة وعيدي التعديل.':'ما قدرنا نوصل لـ GitHub. تأكدي من الإنترنت وجربي مرة تانية.'}
 function login(m){
   document.getElementById('root').innerHTML='<div class="pad" style="min-height:100vh;display:grid;place-items:center"><form id="lg" style="width:min(420px,100%);background:var(--surf);border:1px solid var(--line);border-radius:20px;padding:24px"><h1 class="disp" style="font-size:38px;line-height:1.1;margin:0 0 6px">لوحة تحكم شتا ودفا</h1><p style="color:var(--mut);margin:0 0 18px">حطّي مفتاح الدخول يلي أعطتك ياه صاحبة الموقع. بيضل محفوظ على هالجهاز.</p><div class="fld"><label for="tk">مفتاح الدخول</label><input id="tk" type="password" dir="ltr" autocomplete="off" required placeholder="github_pat_…"></div><p id="lgm" style="color:var(--acc);min-height:1.5em;margin:0 0 10px">'+(m||'')+'</p><button class="btn primary" style="width:100%">دخول</button></form></div>';
   document.getElementById('lg').onsubmit=function(e){e.preventDefault();var v=document.getElementById('tk').value.trim();if(!v)return;tok=v;document.getElementById('lgm').textContent='جاري الدخول…';load(true)};
@@ -672,6 +673,7 @@ function load(fromLogin){
   fetch(API+'contents/'+DIR+'data.json?ref='+BR,{headers:{Authorization:'Bearer '+tok,Accept:'application/vnd.github.raw+json'},cache:'no-store'}).then(function(r){if(!r.ok){var e=new Error();e.status=r.status;throw e}return r.json()}).then(function(d){
     if(fromLogin){try{localStorage.setItem(KEY,tok)}catch(e){}}
     window.__ADMIN=true;boot(d);
+    gh('contents/'+DIR+'data.json?ref='+BR).then(function(f){window.__dataSha=f.sha}).catch(function(){});
     var o=document.createElement('button');o.className='btn ghost small';o.textContent='خروج';o.style.cssText='position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:25';o.onclick=function(){try{localStorage.removeItem(KEY)}catch(e){}location.reload()};document.body.appendChild(o);
   }).catch(function(e){try{localStorage.removeItem(KEY)}catch(x){}tok='';login(errText(e))});
 }
@@ -682,12 +684,12 @@ window.__ghPublish=function(S,done){
   var D=JSON.parse(JSON.stringify(S)),files=[],stamp=Date.now().toString(36);
   D.products.forEach(function(p){p.imgs=p.imgs.map(function(src,i){if(src.indexOf('data:')!==0)return src;if(uploaded[src])return uploaded[src];var m=src.match(/^data:image\/(\w+);base64,(.*)$/);if(!m)return src;var ext=m[1]==='jpeg'?'jpg':m[1];var name='img/'+p.id+'-'+stamp+'-'+i+'.'+ext;files.push({name:name,src:src,b64:m[2]});return name})});
   var base,tree=[];
-  gh('git/ref/heads/'+BR).then(function(ref){base=ref.object.sha;return gh('git/commits/'+base)}).then(function(bc){
+  gh('contents/'+DIR+'data.json?ref='+BR).then(function(f){if(window.__dataSha&&f.sha!==window.__dataSha){var e=new Error('stale');e.status='stale';throw e}return gh('git/ref/heads/'+BR)}).then(function(ref){base=ref.object.sha;return gh('git/commits/'+base)}).then(function(bc){
     var p=Promise.resolve();
     files.forEach(function(f){p=p.then(function(){return gh('git/blobs','POST',{content:f.b64,encoding:'base64'})}).then(function(bl){tree.push({path:DIR+f.name,mode:'100644',type:'blob',sha:bl.sha})})});
-    return p.then(function(){return gh('git/blobs','POST',{content:b64utf8(JSON.stringify(D,null,1)),encoding:'base64'})}).then(function(bl){tree.push({path:DIR+'data.json',mode:'100644',type:'blob',sha:bl.sha});return gh('git/trees','POST',{base_tree:bc.tree.sha,tree:tree})});
+    return p.then(function(){return gh('git/blobs','POST',{content:b64utf8(JSON.stringify(D,null,1)),encoding:'base64'})}).then(function(bl){window.__newSha=bl.sha;tree.push({path:DIR+'data.json',mode:'100644',type:'blob',sha:bl.sha});return gh('git/trees','POST',{base_tree:bc.tree.sha,tree:tree})});
   }).then(function(t){return gh('git/commits','POST',{message:'تحديث منتجات شتا ودفا',tree:t.sha,parents:[base]})}).then(function(c){return gh('git/refs/heads/'+BR,'PATCH',{sha:c.sha})}).then(function(){
-    files.forEach(function(f){uploaded[f.src]=f.name});
+    files.forEach(function(f){uploaded[f.src]=f.name});window.__dataSha=window.__newSha;
     done(true,'انحفظ. التعديلات بتظهر عالموقع خلال دقيقة أو دقيقتين.');
   }).catch(function(e){done(false,errText(e))});
 };
