@@ -1003,6 +1003,23 @@
     "img/pmw4yootitb3v-mw4yq8gd-1.webp",
     "img/pmw4yootitb3v-mw4yq8gd-2.webp"
    ]
+  },
+  {
+   "id": "pmw4yql3cyvfq",
+   "cat": "hair",
+   "name": "اكسسوار شعر",
+   "desc": "",
+   "price": "400",
+   "sizes": "",
+   "colors": "",
+   "status": "order",
+   "imgs": [
+    "img/pmw4yql3cyvfq-mw4ys2vm-0.webp",
+    "img/pmw4yql3cyvfq-mw4ys2vm-1.webp",
+    "img/pmw4yql3cyvfq-mw4ys2vm-2.webp",
+    "img/pmw4yql3cyvfq-mw4ys2vm-3.webp",
+    "img/pmw4yql3cyvfq-mw4ys2vm-4.webp"
+   ]
   }
  ]
 }
