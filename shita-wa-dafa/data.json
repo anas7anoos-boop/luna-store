@@ -1020,6 +1020,37 @@
     "img/pmw4yql3cyvfq-mw4ys2vm-3.webp",
     "img/pmw4yql3cyvfq-mw4ys2vm-4.webp"
    ]
+  },
+  {
+   "id": "pmw4ys4iabz10",
+   "cat": "jackets",
+   "name": "مفارش ورد",
+   "desc": "",
+   "price": "1700",
+   "sizes": "",
+   "colors": "",
+   "status": "order",
+   "imgs": [
+    "img/pmw4ys4iabz10-mw4yvc5a-0.webp",
+    "img/pmw4ys4iabz10-mw4yvc5a-1.webp",
+    "img/pmw4ys4iabz10-mw4yvc5a-2.webp",
+    "img/pmw4ys4iabz10-mw4yvc5a-3.webp",
+    "img/pmw4ys4iabz10-mw4yvc5a-4.webp",
+    "img/pmw4ys4iabz10-mw4yvc5a-5.webp"
+   ]
+  },
+  {
+   "id": "pmw4yuhai87i3",
+   "cat": "blankets",
+   "name": "بوفي دافئ",
+   "desc": "",
+   "price": "",
+   "sizes": "",
+   "colors": "",
+   "status": "order",
+   "imgs": [
+    "img/pmw4yuhai87i3-mw4yvc5a-0.webp"
+   ]
   }
  ]
 }
