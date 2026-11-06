@@ -94,12 +94,26 @@
    "cat": "jackets",
    "name": "فيست دوار شمس",
    "desc": "",
-   "colors": "الالوان حسب الطلب",
+   "colors": "الألوان حسب الطلب",
    "price": "1900",
    "sizes": "",
    "status": "order",
    "imgs": [
     "img/p2-mw4vnjkb-0.webp"
+   ]
+  },
+  {
+   "cat": "jackets",
+   "name": "كارديجان مربعات وردي",
+   "desc": "كارديجان طويل بمربعات وردية وفوشيا وبيضاء.",
+   "colors": "وردي وفوشيا وأبيض",
+   "price": "3000",
+   "sizes": "",
+   "status": "order",
+   "id": "p2b",
+   "imgs": [
+    "img/p2-0.webp",
+    "img/p2-1.webp"
    ]
   },
   {
@@ -516,6 +530,24 @@
    "status": "order",
    "imgs": [
     "img/p41-0.webp"
+   ]
+  },
+  {
+   "id": "pmw4ys4iabz10",
+   "cat": "mats",
+   "name": "مفارش ورد",
+   "desc": "",
+   "price": "1700",
+   "sizes": "",
+   "colors": "",
+   "status": "order",
+   "imgs": [
+    "img/pmw4ys4iabz10-mw4yvc5a-0.webp",
+    "img/pmw4ys4iabz10-mw4yvc5a-1.webp",
+    "img/pmw4ys4iabz10-mw4yvc5a-2.webp",
+    "img/pmw4ys4iabz10-mw4yvc5a-3.webp",
+    "img/pmw4ys4iabz10-mw4yvc5a-4.webp",
+    "img/pmw4ys4iabz10-mw4yvc5a-5.webp"
    ]
   },
   {
@@ -966,7 +998,7 @@
   {
    "id": "pmw4vow7b5ejb",
    "cat": "kids",
-   "name": "جاكيت اطفال",
+   "name": "جاكيت أطفال",
    "desc": "",
    "price": "2300",
    "sizes": "",
@@ -1011,7 +1043,7 @@
   {
    "id": "pmw4yql3cyvfq",
    "cat": "hair",
-   "name": "اكسسوار شعر",
+   "name": "إكسسوار شعر",
    "desc": "",
    "price": "400",
    "sizes": "",
@@ -1023,24 +1055,6 @@
     "img/pmw4yql3cyvfq-mw4ys2vm-2.webp",
     "img/pmw4yql3cyvfq-mw4ys2vm-3.webp",
     "img/pmw4yql3cyvfq-mw4ys2vm-4.webp"
-   ]
-  },
-  {
-   "id": "pmw4ys4iabz10",
-   "cat": "jackets",
-   "name": "مفارش ورد",
-   "desc": "",
-   "price": "1700",
-   "sizes": "",
-   "colors": "",
-   "status": "order",
-   "imgs": [
-    "img/pmw4ys4iabz10-mw4yvc5a-0.webp",
-    "img/pmw4ys4iabz10-mw4yvc5a-1.webp",
-    "img/pmw4ys4iabz10-mw4yvc5a-2.webp",
-    "img/pmw4ys4iabz10-mw4yvc5a-3.webp",
-    "img/pmw4ys4iabz10-mw4yvc5a-4.webp",
-    "img/pmw4ys4iabz10-mw4yvc5a-5.webp"
    ]
   },
   {
