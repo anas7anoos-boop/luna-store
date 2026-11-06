@@ -1,0 +1,25 @@
+[
+{"id":"t1-shawka","screens":[
+ {"ar":"**تعبك** ما بيروح عالفاضي","en":"Your pain is never wasted.","scene":"moon"},
+ {"ar":"حتى **الهمّ** اللي ما حكيته لحدا…","en":"Even the worry you told no one…","scene":"rain"},
+ {"ar":"حتى **الشوكة** اللي بتجرح إيدك…","en":"Even a thorn that pricks your hand…","scene":"rain"},
+ {"ar":"قال رسول الله ﷺ:","en":"The Prophet ﷺ said:","scene":"light","dur":2.2},
+ {"ar":"«ما يصيب المسلم من **نصب** ولا وصب،","en":"\"No fatigue or illness befalls a Muslim,","scene":"light","src":"البخاري 5641 · مسلم 2573"},
+ {"ar":"ولا **همّ** ولا حزن ولا أذى ولا غمّ،","en":"nor worry, grief, harm or distress,","scene":"light","src":"البخاري 5641 · مسلم 2573"},
+ {"ar":"حتى **الشوكة** يُشاكها،","en":"not even a thorn that pricks him,","scene":"light","src":"البخاري 5641 · مسلم 2573"},
+ {"ar":"إلا **كفّر الله** بها من خطاياه»","en":"except that Allah expiates some of his sins by it.\"","scene":"light","src":"البخاري 5641 · مسلم 2573"},
+ {"ar":"كل وجع… **عم ينضّفك**","en":"Every pain… is cleansing you.","scene":"sunrise"},
+ {"ar":"اصبر… **وارتاح**","en":"Be patient… and be at peace.","scene":"sunrise","dur":3.2}
+]},
+{"id":"t2-shajara","screens":[
+ {"ar":"مريض؟ **تعبان**؟","en":"Sick? Exhausted?","scene":"rain"},
+ {"ar":"شوف **الشجرة** بالخريف…","en":"Look at the tree in autumn…","scene":"autumn"},
+ {"ar":"ورقها بيوقع… بس **ما بتموت**","en":"Its leaves fall… but it does not die.","scene":"autumn"},
+ {"ar":"قال رسول الله ﷺ:","en":"The Prophet ﷺ said:","scene":"autumn","dur":2.2},
+ {"ar":"«ما من مسلم يصيبه **أذى**،","en":"\"No Muslim is afflicted with harm,","scene":"autumn","src":"البخاري 5647 · مسلم 2571"},
+ {"ar":"مرضٌ فما سواه،","en":"an illness or anything else,","scene":"autumn","src":"البخاري 5647 · مسلم 2571"},
+ {"ar":"إلا حطّ الله له **سيئاته**","en":"except that Allah sheds his sins","scene":"autumn","src":"البخاري 5647 · مسلم 2571"},
+ {"ar":"كما تحطّ الشجرة **ورقها**»","en":"just as a tree sheds its leaves.\"","scene":"autumn","src":"البخاري 5647 · مسلم 2571"},
+ {"ar":"وبالربيع… **بترجع تزهّر**","en":"And in spring… it blossoms again.","scene":"bloom","dur":4}
+]}
+]
