@@ -10,7 +10,7 @@ html,body{margin:0;background:#000}canvas{display:block}
 const W=1080,H=1920,main=document.getElementById('c');
 const off=document.createElement('canvas');off.width=W;off.height=H;
 let x=main.getContext('2d');const X0=x,X1=off.getContext('2d');
-let D=null;
+let D=null,T=0;
 const ease=t=>t<0?0:t>1?1:1-Math.pow(1-t,3);const clamp=t=>t<0?0:t>1?1:t;
 function rnd(i){const s=Math.sin(i*127.1+311.7)*43758.5453;return s-Math.floor(s)}
 const SK={ // sky palettes
@@ -25,12 +25,12 @@ function sun(cx,cy,r,t){const g=x.createRadialGradient(cx,cy,r*0.3,cx,cy,r*6);g.
 function hills(p,gy){const [a,b]=GR[p];x.fillStyle=shade(a,-0.25);x.beginPath();x.moveTo(0,H);for(let i=0;i<=30;i++){const xx=i/30*W;x.lineTo(xx,gy-60-Math.sin(i*0.35+1)*70)}x.lineTo(W,H);x.fill();
   const g=x.createLinearGradient(0,gy,0,H);g.addColorStop(0,a);g.addColorStop(1,b);x.fillStyle=g;x.beginPath();x.moveTo(0,H);for(let i=0;i<=30;i++){const xx=i/30*W;x.lineTo(xx,gy-Math.sin(i*0.22)*25)}x.lineTo(W,H);x.fill();
   // grass tufts
-  x.strokeStyle=shade(a,0.15);x.lineWidth=3;for(let i=0;i<70;i++){const gx=rnd(i+200)*W,gyy=gy+30+rnd(i+300)*(H-gy-60);x.beginPath();x.moveTo(gx,gyy);x.lineTo(gx-6,gyy-18);x.moveTo(gx,gyy);x.lineTo(gx+5,gyy-16);x.stroke()}}
+  x.strokeStyle=shade(a,0.15);x.lineWidth=3;for(let i=0;i<70;i++){const gx=rnd(i+200)*W,gyy=gy+30+rnd(i+300)*(H-gy-60);const sw=Math.sin(T*1.6+gx*0.01)*7;x.beginPath();x.moveTo(gx,gyy);x.lineTo(gx-6+sw,gyy-18);x.moveTo(gx,gyy);x.lineTo(gx+5+sw,gyy-16);x.stroke()}}
 function shade(hex,k){const n=parseInt(hex.slice(1),16);let r=n>>16,g=n>>8&255,b=n&255;const f=v=>Math.max(0,Math.min(255,Math.round(k<0?v*(1+k):v+(255-v)*k)));return `rgb(${f(r)},${f(g)},${f(b)})`}
 function clouds(t,dark,yy){for(let i=0;i<7;i++){const cx=((rnd(i)*W*1.4+t*(10+i*3))%(W*1.4))-W*0.2,cy=yy+rnd(i+9)*160;x.fillStyle=dark?`rgba(30,32,42,.9)`:`rgba(240,230,220,.5)`;
   for(let k=0;k<6;k++){x.beginPath();x.arc(cx+(k-2.5)*70,cy+Math.sin(k*1.7)*25,80+rnd(i*7+k)*50,0,7);x.fill()}}}
 function rain(t){x.strokeStyle='rgba(200,210,230,.35)';x.lineWidth=2;for(let i=0;i<160;i++){const px=rnd(i)*W*1.2,py=(rnd(i+7)*H+t*1400*(0.8+rnd(i+3)*0.4))%H;x.beginPath();x.moveTo(px-py*0.08,py);x.lineTo(px-py*0.08-8,py+38);x.stroke()}}
-function person(px,gy,pose,s){s=s||1;x.save();x.translate(px,gy);x.scale(s,s);x.fillStyle='#141a2e';
+function person(px,gy,pose,s){s=s||1;x.save();x.translate(px,gy);x.scale(s,s*(1+Math.sin(T*1.8)*0.008));x.fillStyle='#141a2e';
   if(pose==='sit'){x.beginPath();x.ellipse(0,-150,26,30,0,0,7);x.fill();x.beginPath();x.moveTo(-34,-118);x.quadraticCurveTo(0,-128,34,-118);x.lineTo(44,-30);x.lineTo(70,-20);x.lineTo(70,0);x.lineTo(-40,0);x.closePath();x.fill()}
   else{x.beginPath();x.ellipse(0,-262,26,30,0,0,7);x.fill();x.beginPath();x.moveTo(-34,-228);x.quadraticCurveTo(0,-238,34,-228);x.lineTo(30,-110);x.lineTo(-30,-110);x.closePath();x.fill();
     x.fillRect(-26,-112,22,112);x.fillRect(4,-112,22,112);
@@ -38,7 +38,7 @@ function person(px,gy,pose,s){s=s||1;x.save();x.translate(px,gy);x.scale(s,s);x.
   x.restore();x.fillStyle='rgba(0,0,0,.25)';x.beginPath();x.ellipse(px,gy+4,70*(s||1),12,0,0,7);x.fill()}
 function tree(cx,gy,t,mode,lt){// mode: bare|autumn|bloom
   x.strokeStyle='#2b1d18';x.lineCap='round';const tips=[];
-  (function br(x0,y0,a,len,w,d,id){const x1=x0+Math.cos(a)*len,y1=y0+Math.sin(a)*len;x.lineWidth=w;x.beginPath();x.moveTo(x0,y0);x.lineTo(x1,y1);x.stroke();
+  (function br(x0,y0,a,len,w,d,id){a+=Math.sin(T*1.1+id*0.3)*0.012*d;const x1=x0+Math.cos(a)*len,y1=y0+Math.sin(a)*len;x.lineWidth=w;x.beginPath();x.moveTo(x0,y0);x.lineTo(x1,y1);x.stroke();
     if(d>=6){tips.push([x1,y1,id]);return}const sp=0.42+rnd(id)*0.2;br(x1,y1,a-sp,len*0.76,w*0.68,d+1,id*2+1);br(x1,y1,a+sp*0.9,len*0.74,w*0.68,d+1,id*2+2);if(d<3)tips.push([x1,y1,id])})(cx,gy,-Math.PI/2,230,30,0,1);
   tips.forEach(([px,py,id],i)=>{for(let k=0;k<3;k++){const r=rnd(id*3+k);const ox=(rnd(id+k*13)-0.5)*50,oy=(rnd(id+k*29)-0.5)*40;
     if(mode==='autumn'){const fallStart=0.5+rnd(id*5+k)*17;const f=clamp((lt-fallStart)/2.5);if(f<1){const fy=py+oy+f*f*(gy-py+40),fx=px+ox+Math.sin(lt*3+id)*30*f;x.fillStyle=['#c0703a','#d49a3a','#9c4a2a'][(id+k)%3];x.globalAlpha=1-f*0.3;x.beginPath();x.ellipse(fx,fy,11,7,lt+id,0,7);x.fill();x.globalAlpha=1}}
@@ -49,7 +49,9 @@ function hourglass(cx,cy,lt){x.save();x.translate(cx,cy);x.strokeStyle='#d9b46a'
   x.beginPath();x.moveTo(-50,104);x.lineTo(50,104);x.lineTo(0,104-60*f);x.fill();x.fillRect(-2,-6,4,110);
   x.fillStyle='#d9b46a';x.fillRect(-80,-124,160,14);x.fillRect(-80,110,160,14);x.restore()}
 function beam(cx,a){const g=x.createLinearGradient(0,0,0,H*0.8);g.addColorStop(0,`rgba(255,235,180,${0.5*a})`);g.addColorStop(1,'rgba(255,235,180,0)');x.fillStyle=g;x.beginPath();x.moveTo(cx-60,0);x.lineTo(cx+60,0);x.lineTo(cx+260,H*0.8);x.lineTo(cx-260,H*0.8);x.fill()}
-function scene(name,t,lt){const gy=H*0.66;
+function birds(t){x.strokeStyle='rgba(30,30,40,.7)';x.lineWidth=3;for(let i=0;i<5;i++){const bx=((t*60+i*170+rnd(i)*300)%(W+300))-150,by=H*0.3+rnd(i+4)*200+Math.sin(t*2+i)*12,f=Math.sin(t*9+i)*10;x.beginPath();x.moveTo(bx-18,by-f);x.quadraticCurveTo(bx-8,by-6,bx,by);x.quadraticCurveTo(bx+8,by-6,bx+18,by-f);x.stroke()}}
+function flies(t,col){for(let i=0;i<26;i++){const fx=rnd(i+70)*W+Math.sin(t*0.7+i)*40,fy=H*0.45+rnd(i+90)*H*0.4+Math.cos(t*0.9+i*2)*30,a=0.3+0.7*(0.5+0.5*Math.sin(t*2.3+i*1.7));const g=x.createRadialGradient(fx,fy,0,fx,fy,14);g.addColorStop(0,`rgba(${col},${a})`);g.addColorStop(1,`rgba(${col},0)`);x.fillStyle=g;x.fillRect(fx-14,fy-14,28,28)}}
+function scene(name,t,lt){T=t;x.save();const z=1+Math.min(lt,30)*0.004;x.translate(W/2,H*0.6);x.scale(z,z);x.translate(-W/2+Math.sin(t*0.15)*10,-H*0.6);const gy=H*0.66;
   switch(name){
   case 'moon':sky('night');stars(t,120);moon(W*0.5,H*0.42,70);hills('night',gy);person(W*0.5,gy+60,'stand',0.9);break;
   case 'rain':sky('storm');clouds(t,true,H*0.25);hills('storm',gy);person(W*0.5,gy+80,'sit',1);rain(t);break;
@@ -62,21 +64,22 @@ function scene(name,t,lt){const gy=H*0.66;
   case 'light':sky('night');stars(t,100);beam(W*0.5,0.6+0.4*Math.sin(t));hills('night',gy);person(W*0.5,gy+70,'pray',1);break;
   case 'door':sky('night');stars(t,100);hills('night',gy);{const dw=180,dh=320,dx=W*0.5-dw/2,dy=gy-dh+20;const g=x.createRadialGradient(W/2,dy+dh/2,20,W/2,dy+dh/2,500);g.addColorStop(0,'rgba(255,225,160,.5)');g.addColorStop(1,'rgba(255,225,160,0)');x.fillStyle=g;x.fillRect(0,0,W,H);x.fillStyle='#ffe7b0';x.fillRect(dx,dy,dw,dh);x.fillStyle='#5a3d2a';x.fillRect(dx-12,dy-12,12,dh+12);x.fillRect(dx+dw,dy-12,12,dh+12);x.fillRect(dx-12,dy-12,dw+24,12)}person(W*0.3,gy+80,'stand',0.85);break;
   }
+  if(/sunrise|bloom/.test(name))birds(t);if(/moon|night|light|hourglass|door/.test(name))flies(t,'255,225,150');if(/autumn|pray/.test(name))flies(t,'255,190,120');x.restore();
   const v=x.createLinearGradient(0,0,0,H*0.35);v.addColorStop(0,'rgba(0,0,0,.55)');v.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=v;x.fillRect(0,0,W,H*0.35)}
-function lineText(ar,en,a,src){x.globalAlpha=a;x.direction='rtl';x.textBaseline='middle';
+let LT=0;function lineText(ar,en,a,src){x.globalAlpha=a;x.direction='rtl';x.textBaseline='middle';
   // parse **key**
   const parts=[];ar.split(/(\*\*[^*]+\*\*)/).forEach(p=>{if(!p)return;const k=p.startsWith('**');p.replace(/\*\*/g,'').split(/\s+/).filter(Boolean).forEach(w=>parts.push({w,k}))});
   const size=parts.length>7?70:86;x.font=`700 ${size}px Ruqaa`;const sp=x.measureText(' ').width;
   // wrap
   const lines=[];let cur=[],cw=0;for(const p of parts){p.ww=x.measureText(p.w).width;if(cur.length&&cw+sp+p.ww>900){lines.push({cur,cw});cur=[];cw=0}cur.push(p);cw+=(cur.length>1?sp:0)+p.ww}lines.push({cur,cw});
   let y=H*0.17-(lines.length-1)*size*0.7;x.textAlign='right';
-  for(const L of lines){let xx=W/2+L.cw/2;for(const p of L.cur){x.shadowColor='rgba(0,0,0,.6)';x.shadowBlur=14;x.fillStyle=p.k?'#f0c45a':'rgba(245,238,220,.62)';x.fillText(p.w,xx,y);x.shadowBlur=0;xx-=p.ww+sp}y+=size*1.4}
+  let wi=0;const base=x.globalAlpha;for(const L of lines){let xx=W/2+L.cw/2;for(const p of L.cur){const wa=ease(clamp((LT-wi*0.16)/0.5));if(wa>0){x.globalAlpha=base*wa;x.filter=wa<1?`blur(${(1-wa)*8}px)`:'none';x.shadowColor=p.k?'rgba(240,196,90,.55)':'rgba(0,0,0,.6)';x.shadowBlur=p.k?24:14;x.fillStyle=p.k?'#f0c45a':'rgba(245,238,220,.66)';x.fillText(p.w,xx,y+(1-wa)*18);x.shadowBlur=0;x.filter='none'}wi++;xx-=p.ww+sp}y+=size*1.4}x.globalAlpha=base;const ea=ease(clamp((LT-wi*0.16)/0.6));x.globalAlpha=base*ea;
   if(en){x.font='400 38px AmiriL';x.direction='ltr';x.textAlign='center';x.fillStyle='rgba(245,238,220,.85)';x.fillText(en,W/2,y-size*0.4+20)}
   if(src){x.font='500 34px Kufi';x.direction='rtl';x.textAlign='center';x.fillStyle='rgba(240,196,90,.9)';x.fillText(src,W/2,H*0.9)}
   x.globalAlpha=1}
 window.setup=d=>{D=d;let t=0;d.tl=d.screens.map(s=>{const n=s.ar.replace(/\*/g,'').split(/\s+/).length;const du=s.dur||(1.6+n*0.42);const o={...s,s:t,e:t+du};t+=du;return o});d.total=t+0.6;return d.total};
 window.renderAt=t=>{const tl=D.tl;let i=tl.findIndex(s=>t<s.e);if(i<0)i=tl.length-1;const cur=tl[i],prev=tl[i-1];
-  const lt=t-cur.s;const cf=0.6;
+  const lt=t-cur.s;const cf=0.9;LT=lt;
   // scene: if scene changes, crossfade
   x=X0;if(prev&&prev.scene!==cur.scene&&lt<cf){scene(prev.scene,t,t-sceneStart(i-1));x=X1;scene(cur.scene,t,t-sceneStart(i));x=X0;x.globalAlpha=ease(lt/cf);x.drawImage(off,0,0);x.globalAlpha=1}
   else scene(cur.scene,t,t-sceneStart(i));
